@@ -11,8 +11,8 @@ class Ninja {
         return this
     }
     showStats(){
-        const {name,health,speed,strength} = this
-        console.log(name,strength,speed,health)
+        const {name,speed,strength,health} = this
+        console.log(`name: ${name}, speed: ${speed}, strength: ${strength}, health: ${health}`)
         return this
     } 
     drinkSake(){
@@ -25,8 +25,9 @@ class Sensei extends Ninja {
     constructor(name){
         super(name);
         this.health = 200;
-        this.speed = 10;
         this.strength = 10;
+        this.speed = 10;
+        this.wisdom = 10;
     }
     speakWisdom(){
         super.drinkSake()
