@@ -24,35 +24,34 @@ const reducer = (state = initialState, { type, payload }) => {
 const TodoContainer = (props) => {
     const [inputValue, setState] = useState('')
     const [initState,dispatch] = useReducer(reducer, initialState)
-    
-    
-        useEffect(() => {
-            localStorage.setItem("todos", JSON.stringify(initState.todos))
-        }, [initState])
-    
-        const submitHandler = (e) => {
-            e.preventDefault();
-            dispatch({
-                type: 'ADD_TODO',
-                payload: {todo: inputValue, completed: false}
-            });
-        }
-    
-        const changeHandler = (e) => {
-            const { value } = e.target;
-            setState(value)
-        }
-    
-        const deleteHandler = (id) => {
-            const todos = initState.todos;
-            const payload = todos.filter(todo => todo !== todos[id]);
-            dispatch({
-                type: 'DELETE_TODO',
-                payload: payload
-            })
-        }   
 
-    const completedHandler = (id) => {
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(initState.todos))
+    }, [initState])
+
+    const saveTodo = (e) => {
+        e.preventDefault();
+        dispatch({
+            type: 'ADD_TODO',
+            payload: {todo: inputValue, completed: false}
+        });
+    }
+
+    const inputChange = (e) => {
+        const { value } = e.target;
+        setState(value)
+    }
+
+    const deleteTodo = (id) => {
+        const todos = initState.todos;
+        const payload = todos.filter(todo => todo !== todos[id]);
+        dispatch({
+            type: 'DELETE_TODO',
+            payload: payload
+        })
+    }   
+
+    const completeTodo = (id) => {
         const todos = initState.todos;
         todos[id] = {...todos[id], completed: !todos[id].completed}
         dispatch({
@@ -63,9 +62,9 @@ const TodoContainer = (props) => {
 
     return (
         <>      
-            <Input submitHandler={submitHandler} changeHandler={changeHandler} value={inputValue} />
+            <Input submitHandler={saveTodo} changeHandler={inputChange} value={inputValue} />
             <ul className='list-group mt-2'>
-                {initState.todos.map((todo, i) => <Todo todo={todo.todo} completed={todo.completed} key={i} completedHandler={() => completedHandler(i)} deleteHandler={() => deleteHandler(i)}/>)}
+                {initState.todos.map((todo, i) => <Todo todo={todo.todo} completed={todo.completed} key={i} completedHandler={() => completeTodo(i)} deleteHandler={() => deleteTodo(i)}/>)}
             </ul>
         </>
     )
