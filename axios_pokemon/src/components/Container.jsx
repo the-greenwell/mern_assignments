@@ -8,13 +8,10 @@ export const Container = () => {
 
     const getPokemon = () => {
         let arr = []
-        for (let index = 1; index < 808; index++) {
-            axios.get(`https://pokeapi.co/api/v2/pokemon/${index}`)
+            axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1054`)
                 .then(response=>{
-                    arr.push({name: response.data.name, id: response.data.id}) 
+                    setPokemon(response.data.results) 
                 })
-        }
-        setPokemon(arr)
     };
 
     return (
@@ -29,10 +26,10 @@ export const Container = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {pokemon.map((poke)=>{
+                    {pokemon.map((poke, i)=>{
                         console.log(poke);
                         return (<tr>
-                            <PokeName pokemon={poke} />
+                            <PokeName pokemon={poke} id={i+1}/>
                         </tr>)
                     })}
                 </tbody>

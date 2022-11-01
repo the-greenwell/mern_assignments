@@ -1,10 +1,9 @@
 import React from 'react'
 
-export const PokeName = ({ pokemon }) => {
-    console.log(pokemon)
+export const PokeName = ({ pokemon, id }) => {
     return (
         <>
-            <th scope="row">{pokemon.id}</th>
+            <th scope="row">{id}</th>
             <td>{pokemon.name}</td>
         </>
     )
