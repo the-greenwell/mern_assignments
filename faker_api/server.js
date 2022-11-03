@@ -32,10 +32,10 @@ class Company {
 app.get('/api', (req,res) => {
     res.json({ message: 'API is running'})
 });
-app.get('/api/user/new', (req,res) => {
+app.get('/api/users/new', (req,res) => {
     res.json({ user: new User() })
 });
-app.get('/api/company/new', (req,res) => {
+app.get('/api/companies/new', (req,res) => {
     res.json({ company: new Company() })
 });
 app.get('/api/user/company', (req,res) => {
